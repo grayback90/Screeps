@@ -1,0 +1,24 @@
+{
+	"screeps": [
+		{
+			"ID": "harvester",
+			"count": 4,
+			"Prio": 10
+		},
+		{
+			"ID": "builder",
+			"count": 1,
+			"Prio": 7
+		},
+		{
+			"ID": "upgrader",
+			"count": 2,
+			"Prio": 8
+		},
+		{
+			"ID": "repairer",
+			"count": 1,
+			"Prio": 1
+		}
+	]
+}
