@@ -1,6 +1,6 @@
 /**********************************************
 *
-* file: role.repairer.js
+* file: role.wallRepairer.js
 * date: 21.07.2021
 * version: 1.0
 *
@@ -26,22 +26,36 @@ module.exports = {
 
         // if creep is supposed to repair something
         if (creep.memory.working == true) {
-            // find closest structure with less than max hits
-            // Exclude walls because they have way too many max hits and would keep
-            // our repairers busy forever. We have to find a solution for that later.
-            var structure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                // the second argument for findClosestByPath is an object which takes
-                // a property called filter which can be a function
-                // we use the arrow operator to define it
-                filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL
+            // find all walls in the room
+            var walls = creep.room.find(FIND_STRUCTURES, {
+                filter: (s) => s.structureType == STRUCTURE_WALL
             });
 
-            // if we find one
-            if (structure != undefined) {
-                // try to repair it, if it is out of range
-                if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
+            var target = undefined;
+
+            // loop with increasing percentages
+            for (let percentage = 0.0001; percentage <= 1; percentage = percentage + 0.0001){
+                // find a wall with less than percentage hits
+                for (let wall of walls) {
+                    if (wall.hits / wall.hitsMax < percentage) {
+                        target = wall;
+                        break;
+                    }
+                }
+
+                // if there is one
+                if (target != undefined) {
+                    // break the loop
+                    break;
+                }
+            }
+
+            // if we find a wall that has to be repaired
+            if (target != undefined) {
+                // try to repair it, if not in range
+                if (creep.repair(target) == ERR_NOT_IN_RANGE) {
                     // move towards it
-                    creep.moveTo(structure);
+                    creep.moveTo(target);
                 }
             }
             // if we can't fine one
@@ -50,7 +64,7 @@ module.exports = {
                 roleBuilder.run(creep);
             }
         }
-            // if creep is supposed to get energy
+        // if creep is supposed to get energy
         else {
             creep.getEnergy(true, true);
         }
