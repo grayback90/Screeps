@@ -10,7 +10,7 @@
 *
 **********************************************/
 
-var listOfRoles = ['harvester', 'lorry', 'claimer', 'upgrader', 'repairer', 'builder', 'wallRepairer', 'guard'];
+var listOfRoles = ['harvester', 'lorry', 'claimer', 'upgrader', 'repairer', 'builder', 'wallRepairer'];
 
 // create a new function for StructureSpawn
 StructureSpawn.prototype.spawnCreepsIfNecessary =
@@ -40,7 +40,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         max_['wallRepairer'] = 1;
         max_['lorry'] = 1;
         max_['claimer'] = 0; //not neccessary -> spawns only if there is a claim-call -> only that no errors occur
-        max_['guard'] = 1;
 
         let maxEnergy = room.energyCapacityAvailable;
         let name = undefined;

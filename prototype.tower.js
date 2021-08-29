@@ -2,7 +2,7 @@
 *
 * file: prototype.tower.js
 * date: 15.07.2021
-* version: 1.0
+* version: 1.1
 *
 * funtions: logic for all towers to find
 *           and attack enemies
@@ -12,11 +12,24 @@
 // create a new function for StructureTower
 StructureTower.prototype.defend =
     function () {
-        // find closes hostile creep
-        var target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+
+        // find any hostile creep
+        target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+
+        // find Healer
+        targetHeal = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {
+            filter: function(object) {
+                return object.getActiveBodyparts(HEAL) > 0;
+            }
+        });
+
         // if one is found...
-        if (target != undefined) {
+        if (targetHeal != undefined) {
             // ...FIRE!
-            this.attack(target);
+            this.attack(targetHeal);
+        }
+        else {
+          // ...FIRE!
+          this.attack(target);
         }
 };

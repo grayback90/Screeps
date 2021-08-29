@@ -4,13 +4,17 @@
 * date: 21.07.2021
 * version: 1.0
 *
+*
+* WorkingState:
+*      true = could spend all his storage energy
+*      false = has no engery left, needs to collect energy
 **********************************************/
 
 module.exports = {
     // a function to run the logic for this role
     /** @param {Creep} creep */
     run: function(creep) {
-        // if creep is bringing energy to a structure but has no energy left
+        // if creep is bringing energy to a structure but has no energy left in carry
         if (creep.memory.working == true && creep.carry.energy == 0) {
             // switch state
             creep.memory.working = false;

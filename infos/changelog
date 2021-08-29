@@ -1,5 +1,8 @@
 29.08.2021
 - removed folder structure
+- guard removed (not neccessary at the beginning)
+- little changes and comments
+- tower logic to attack only the target with lowest health
 
 21.07.2021
 - old code imported
